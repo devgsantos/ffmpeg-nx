@@ -1,6 +1,20 @@
 FFmpeg README
 =============
 
+This checkout is a fork of FFmpeg hosted at https://github.com/devgsantos/ffmpeg-nx.git.
+It contains custom patches for this fork and is intended to be pushed to `origin`
+for this repository.
+
+Use `upstream` for the main FFmpeg repository and `origin` for the fork:
+
+  git remote -v
+  origin  https://github.com/devgsantos/ffmpeg-nx.git (fetch/push)
+  upstream https://github.com/FFmpeg/FFmpeg.git (fetch/push)
+
+Commit locally as usual, then push to the fork with:
+
+  git push origin HEAD:main
+
 FFmpeg is a collection of libraries and tools to process multimedia content
 such as audio, video, subtitles and related metadata.
 
@@ -41,6 +55,22 @@ GPL. Please refer to the LICENSE file for detailed information.
 
 ## Contributing
 
-Patches should be submitted to the ffmpeg-devel mailing list using
-`git format-patch` or `git send-email`. Github pull requests should be
-avoided because they are not part of our review process and will be ignored.
+This fork uses `origin` for the custom repository at
+`https://github.com/devgsantos/ffmpeg-nx.git` and `upstream` for the main
+FFmpeg repository at `https://github.com/FFmpeg/FFmpeg.git`.
+
+For local patch workflow:
+
+  git add <files>
+  git commit -m "Describe the patch"
+  git push origin HEAD:main
+
+If you want to keep the fork branch aligned with upstream:
+
+  git fetch upstream
+  git rebase upstream/master
+  git push origin HEAD:main
+
+Patches may still be generated with `git format-patch` or `git send-email` for
+traditional FFmpeg review, but direct pushes should go to the fork's `main`
+branch.
