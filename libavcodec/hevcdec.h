@@ -277,6 +277,8 @@ typedef struct SliceHeader {
     int16_t chroma_offset_l1[16][2];
 
     int slice_ctb_addr_rs;
+
+    int nvidia_skip_length;
 } SliceHeader;
 
 typedef struct CodingUnit {

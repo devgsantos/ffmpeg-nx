@@ -108,6 +108,13 @@ AVBufferRef *av_buffer_alloc(size_t size);
 AVBufferRef *av_buffer_allocz(size_t size);
 
 /**
+ * Allocate an AVBuffer of the given size and alignment.
+ *
+ * @return an AVBufferRef of given size or NULL when out of memory
+ */
+AVBufferRef *av_buffer_aligned_alloc(size_t size, size_t align);
+
+/**
  * Always treat the buffer as read-only, even when it has only one
  * reference.
  */
