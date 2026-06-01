@@ -26,6 +26,19 @@
 
 #include "internal.h"
 #include "network.h"
+/*
+ * NSTV_SWITCH_TCP_MAXSEG_PATCH
+ *
+ * devkitPro/libnx headers may not expose TCP_MAXSEG, but FFmpeg tcp.c
+ * references it when compiling TCP support. Define the common TCP_MAXSEG
+ * socket option value so the cross-build can compile.
+ *
+ * The option is only used when tcp_mss is explicitly set.
+ */
+#ifndef TCP_MAXSEG
+#define TCP_MAXSEG 2
+#endif
+
 #include "os_support.h"
 #include "url.h"
 #if HAVE_POLL_H

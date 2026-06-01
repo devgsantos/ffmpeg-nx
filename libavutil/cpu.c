@@ -48,6 +48,9 @@
 #if HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#ifdef __SWITCH__
+#include <switch.h>
+#endif
 
 static atomic_int cpu_flags = ATOMIC_VAR_INIT(-1);
 static atomic_int cpu_count = ATOMIC_VAR_INIT(-1);
@@ -245,6 +248,10 @@ int av_cpu_count(void)
 #elif HAVE_WINRT
     GetNativeSystemInfo(&sysinfo);
     nb_cpus = sysinfo.dwNumberOfProcessors;
+#elif defined(__SWITCH__)
+    u64 core_mask = 0;
+    Result rc = svcGetInfo(&core_mask, InfoType_CoreMask, CUR_PROCESS_HANDLE, 0);
+    nb_cpus = R_SUCCEEDED(rc) ? av_popcount64(core_mask) : 3;
 #endif
 
     if (!atomic_exchange_explicit(&printed, 1, memory_order_relaxed))
